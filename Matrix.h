@@ -4,27 +4,23 @@
 #include <iostream>
 #include <cassert>
 
-
-
 class Matrix {
 public:
-	Matrix(int column_count, int row_count) :
-		width(column_count), height(row_count)
+	Matrix(int trailer_width_in, int trailer_height_in) :
+		width(trailer_width_in), height(trailer_height_in)
 	{
 		data = new float* [width];
 		for (int i = 0; i < width; i++) {
 			data[i] = new float[height];
 		}
-
 	}
-
 
 	int Matrix_at(int column, int row) {
 		return data[column][row];
 	}
 
-	void Matrix_fill(int column, int row, float value) {
-		data[column][row] = value;
+	void Matrix_fill(int width, int height, bool flag) {
+		data[width][height] = flag;
 	}
 
 	void Print_matrix() {
@@ -67,9 +63,6 @@ public:
 
 		delete[] data;
 	}
-
-
-
 
 private:
 	int width;
