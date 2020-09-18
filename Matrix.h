@@ -19,8 +19,8 @@ public:
 		return data[column][row];
 	}
 
-	void Matrix_fill(int width, int height, bool flag) {
-		data[width][height] = flag;
+	void Matrix_fill(int width, int height, bool value) {
+		data[width][height] = value;
 	}
 
 	void Print_matrix() {
@@ -35,7 +35,7 @@ public:
 		}
 	}
 
-	void Matrix_fill_border(int value) {
+	void Matrix_fill_border(bool value) {
 
 		for (int i = 0; i < width; i++) {
 			*data[i] = value;
@@ -47,7 +47,6 @@ public:
 		}
 
 	}
-
 	int Column_count() {
 		return width;
 	}

@@ -1,45 +1,51 @@
 #include <iostream>
+#include <fstream>
+#include <vector>
+#include<iomanip>
 #include <string>
 #include <map>
+#include <sstream>
 #include "Matrix.h"
 
 using namespace std;
 
-void trailer_matrix(int width_in, int length_in) {
-	
-	
-	if (length_in == 53 && width_in == 8.5) {
+/*
 
+
+
+
+*/
+
+
+void read_csv(string input) {
+	string line, values, temp;
+	vector<string> container;
+	ifstream file_in;
+	file_in.open(input);
+	
+	if (!file_in.is_open()) throw std::runtime_error("Could not open file");
+
+	while (getline(file_in, temp, ',')) {
+		if (temp.compare("") != 0) {
+			cout << temp;
+			container.push_back(temp);
+		}
+		
+		
 	}
 	
-	else if (length_in == 48 && width_in == 8) {
-
+	for (long unsigned int i = 0; i < container.size(); i++) {
+		cout << container[i] << endl;
 	}
 	
-	else if (length_in == 45 && width_in == 8) {
 
-	}
-
-	else if (length_in == 43 && width_in == 8){
-	}
-	
-	else if (length_in == 28) {
-
-	}
-
-	else {
-		cout << "Try a different length: " << std::endl;
-	}
-
-	
+	file_in.close();
 }
 
 int main(int argc, char* argv[])
 {
-	multimap<string, int> pallet;
-	trailer_matrix(stoi(argv[1]), stoi(argv[2]));
+	read_csv(argv[1]);
 	
-
 	return 0;
 }
 
