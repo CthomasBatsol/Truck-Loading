@@ -1,24 +1,24 @@
-"OrderID,DisplayCustomer,Cus"	tomer for Out	Shipment::Cu	"stomerID,Chemistr"	"yIDs,OutShipID,OrderID,ChemistryIDs,DisplayCustomer,Location,EstShipDate,TrailerTypeDisplay,Drum CT,TrailerTypes::MaxShipUnits,TrailerTypes::MaxWeight,cNumUnitsOut,cGrossWeight,cQuantity,InvUnit for OutShipment::InvUnitID,UnitTypes for InvUnit for OutShipment::UnitType,InvUnit for OutShipment::Area,MRL for OutShipment InvUnit::MaterialName,InvUnit for OutShipment::Notes,InvUnit for OutShipment::ESAUnit,InvUnit for OutShipment::GrossWeight,InvUnit for OutShipment::Quantity"
-"K001480,""McDunnough, Inc-MI"	", Fenton"",402"	"4,,2104,K001"	"480,,""McDunnough,"	"Inc-MI, Fenton"",Howell,04/30/2012,53� Trailer,,24,""44,000 "",23,""5,949 "",,102987,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,154.00 ,"
-",,,,,,,,,,,,,,,,,102988,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,498.00"	","
-",,,,,,,,,,,,,,,,,102989,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,269.00"	","
-",,,,,,,,,,,,,,,,,102990,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,323.00"	","
-",,,,,,,,,,,,,,,,,102992,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,365.00"	","
-",,,,,,,,,,,,,,,,,102993,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,255.00"	","
-",,,,,,,,,,,,,,,,,102994,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,203.00"	","
-",,,,,,,,,,,,,,,,,102996,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,171.00"	","
-",,,,,,,,,,,,,,,,,102997,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,240.00"	","
-",,,,,,,,,,,,,,,,,102998,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,136.00"	","
-",,,,,,,,,,,,,,,,,103001,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,283.00"	","
-",,,,,,,,,,,,,,,,,103002,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,155.00"	","
-",,,,,,,,,,,,,,,,,103003,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,193.00"	","
-",,,,,,,,,,,,,,,,,103004,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,123.00"	","
-",,,,,,,,,,,,,,,,,103005,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,339.00"	","
-",,,,,,,,,,,,,,,,,103007,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,222.00"	","
-",,,,,,,,,,,,,,,,,103008,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,219.00"	","
-",,,,,,,,,,,,,,,,,103009,4x4"	"Pallet,Aisle"	"1,M-SPX-800"	"Plastic,,,348.00"	","
-",,,,,,,,,,,,,,,,,103010,4x4"	"Pallet,Aisle"	"2,M-SPX-800"	"Plastic,,,132.00"	","
-",,,,,,,,,,,,,,,,,103011,4x4"	"Pallet,Aisle"	"2,M-SPX-800"	"Plastic,,,362.00"	","
-",,,,,,,,,,,,,,,,,100295,Gay"	"lord Box,Aisl"	"e 5,M-SPX-80"	"0 Plastic,  xfr 4"	"/9,,273.00 ,"
-",,,,,,,,,,,,,,,,,100297,4x4"	"Pallet,Aisle"	"5,M-SPX-800"	"Plastic,  xfr 4/"	"9,,487.00 ,"
-",,,,,,,,,,,,,,,,,102999,4x4"	"Pallet,Aisle"	"5,M-SPX-800"	"Plastic,,,199.00"	","
+﻿OrderID,DisplayCustomer,Customer for OutShipment::CustomerID,ChemistryIDs,OutShipID,OrderID,ChemistryIDs,DisplayCustomer,Location,EstShipDate,TrailerTypeDisplay,Drum CT,TrailerTypes::MaxShipUnits,TrailerTypes::MaxWeight,cNumUnitsOut,cGrossWeight,cQuantity,InvUnit for OutShipment::InvUnitID,UnitTypes for InvUnit for OutShipment::UnitType,InvUnit for OutShipment::Area,MRL for OutShipment InvUnit::MaterialName,InvUnit for OutShipment::Notes,InvUnit for OutShipment::ESAUnit,InvUnit for OutShipment::GrossWeight,InvUnit for OutShipment::Quantity
+K001480,"McDunnough, Inc-MI, Fenton",4024,,2104,K001480,,"McDunnough, Inc-MI, Fenton",Howell,04/30/2012,53’ Trailer,,24,"44,000 ",23,"5,949 ",,102987,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,154.00 ,
+,,,,,,,,,,,,,,,,,102988,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,498.00 ,
+,,,,,,,,,,,,,,,,,102989,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,269.00 ,
+,,,,,,,,,,,,,,,,,102990,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,323.00 ,
+,,,,,,,,,,,,,,,,,102992,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,365.00 ,
+,,,,,,,,,,,,,,,,,102993,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,255.00 ,
+,,,,,,,,,,,,,,,,,102994,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,203.00 ,
+,,,,,,,,,,,,,,,,,102996,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,171.00 ,
+,,,,,,,,,,,,,,,,,102997,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,240.00 ,
+,,,,,,,,,,,,,,,,,102998,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,136.00 ,
+,,,,,,,,,,,,,,,,,103001,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,283.00 ,
+,,,,,,,,,,,,,,,,,103002,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,155.00 ,
+,,,,,,,,,,,,,,,,,103003,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,193.00 ,
+,,,,,,,,,,,,,,,,,103004,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,123.00 ,
+,,,,,,,,,,,,,,,,,103005,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,339.00 ,
+,,,,,,,,,,,,,,,,,103007,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,222.00 ,
+,,,,,,,,,,,,,,,,,103008,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,219.00 ,
+,,,,,,,,,,,,,,,,,103009,4x4 Pallet,Aisle 1,M-SPX-800 Plastic,,,348.00 ,
+,,,,,,,,,,,,,,,,,103010,4x4 Pallet,Aisle 2,M-SPX-800 Plastic,,,132.00 ,
+,,,,,,,,,,,,,,,,,103011,4x4 Pallet,Aisle 2,M-SPX-800 Plastic,,,362.00 ,
+,,,,,,,,,,,,,,,,,100295,Gaylord Box,Aisle 5,M-SPX-800 Plastic,  xfr 4/9,,273.00 ,
+,,,,,,,,,,,,,,,,,100297,4x4 Pallet,Aisle 5,M-SPX-800 Plastic,  xfr 4/9,,487.00 ,
+,,,,,,,,,,,,,,,,,102999,4x4 Pallet,Aisle 5,M-SPX-800 Plastic,,,199.00 ,
