@@ -1,17 +1,12 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#include<iomanip>
 #include <string>
-#include<cstring>
-#include <map>
 #include <sstream>
 #include "Matrix.h"
+#include "Truck.h"
 
-
-
-
-void read_csv(std::string filename) {
+std::vector<std::string> read_csv(std::string filename) {
 	std::ifstream file;
 	std::string word;
 	std::vector<std::string> words;
@@ -31,11 +26,11 @@ void read_csv(std::string filename) {
 			std::cout << "found -> " << i << ": " << words[i] << std::endl;
 		}
 
-		if (words[i].compare("48’ Trailer")) {
+		if (words[i].compare("48’ Trailer") == 0) {
 			std::cout << "found -> " << i << ": " << words[i] << std::endl;
 		}
 		
-		if (words[i].compare("45’ Trailer")) {
+		if (words[i].compare("40’ Trailer") == 0) {
 			std::cout << "found -> " << i << ": " << words[i] << std::endl;
 		}
 
@@ -45,13 +40,15 @@ void read_csv(std::string filename) {
 
 	}
 
+	return words;
 }
 
 int main(int argc, char* argv[])
 {
-    read_csv(argv[1]);
-  
+    std::vector<std::string> file_contents = read_csv(argv[1]);
 	
+
+
 	return 0;
 }
 
