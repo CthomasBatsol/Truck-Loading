@@ -20,10 +20,13 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix.h">
+    <ClInclude Include="bst.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Truck.h">
+    <ClInclude Include="TreePrint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="csvstream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

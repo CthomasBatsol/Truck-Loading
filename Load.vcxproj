@@ -142,8 +142,9 @@
     <ClCompile Include="Load.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Matrix.h" />
-    <ClInclude Include="Truck.h" />
+    <ClInclude Include="bst.h" />
+    <ClInclude Include="csvstream.h" />
+    <ClInclude Include="TreePrint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
