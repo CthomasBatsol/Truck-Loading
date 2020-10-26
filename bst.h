@@ -340,7 +340,7 @@ private:
 		int size(0);
 		if (empty_impl(node) != true)
 		{
-			//recursion 
+			//recursion  
 			size = 1 + size_impl(node->left) + size_impl(node->right);
 		}
 		return size;
