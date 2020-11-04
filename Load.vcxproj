@@ -144,9 +144,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Battery-Recognition\unit_test_framework.h" />
-    <ClInclude Include="bst.h" />
     <ClInclude Include="csvstream.h" />
-    <ClInclude Include="TreePrint.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
