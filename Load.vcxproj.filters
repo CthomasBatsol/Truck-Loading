@@ -29,5 +29,8 @@
     <ClInclude Include="..\Battery-Recognition\unit_test_framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Truck.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
