@@ -139,12 +139,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Battery-Recognition\unit_test_framework.cpp" />
     <ClCompile Include="Load.cpp" />
+    <ClCompile Include="truck_tests.cpp" />
+    <ClCompile Include="unit_test_framework.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\Battery-Recognition\unit_test_framework.h" />
     <ClInclude Include="csvstream.h" />
+    <ClInclude Include="unit_test_framework.h" />
     <ClInclude Include="Truck.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

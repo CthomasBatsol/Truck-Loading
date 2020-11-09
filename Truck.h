@@ -1,6 +1,9 @@
 #ifndef TRUCK_H
 #define TRUCK_H
+#include <iostream>
+#include <fstream>
 #include "csvstream.h"
+
 
 class truck {
 public:
@@ -85,32 +88,32 @@ public:
 		return std::stoi(word);
 	}
 
-	void build_load() {
+	void build_load(std::string& output) {
 		order_weights();
 
 		if (trailer_length.compare(twenty_foot_container) == 0) {
-			build_twenty_foot_container();
+			build_twenty_foot_container(output);
 		}
 		else if (trailer_length.compare(twenty_eight_truck) == 0) {
-			build_twenty_eight_truck();
+			build_twenty_eight_truck(output);
 		}
 		else if (trailer_length.compare(fourty_container) == 0) {
-			build_fourty_container();
+			build_fourty_container(output);
 		}
 		else if (trailer_length.compare(fourty_eight_trailer) == 0) {
-			build_fourty_eight_trailer();
+			build_fourty_eight_trailer(output);
 		}
 		else if (trailer_length.compare(fourty_eight_trailer_dbl_stack) == 0) {
-			build_fourty_eight_dbl_stack();
+			build_fourty_eight_dbl_stack(output);
 		}
 		else if (trailer_length.compare(fifty_three_trailer) == 0) {
-			build_fifty_three_trailer();
+			build_fifty_three_trailer(output);
 		}
 		else if (trailer_length.compare(fifty_three_dbl_stack) == 0) {
-			build_fifty_three_trailer_dbl_stack();
+			build_fifty_three_trailer_dbl_stack(output);
 		}
 		else if (trailer_length.compare(steel_flatbed) == 0) {
-			build_steel_flatbed();
+			build_steel_flatbed(output);
 		}
 		else {
 			std::cout << "Error: Unrecognized Trailer... Unable to generate load." << std::endl;
@@ -123,35 +126,64 @@ public:
 	//3. Split load evenly, 25% of load in each quadrant.
 	//4. Heaviest materials in the middle. 
 
-	void build_twenty_foot_container() {
+	void build_twenty_foot_container(std::string& output_in) {
 		
 	}
 
-	void build_twenty_eight_truck() {
+	void build_twenty_eight_truck(std::string& output_in) {
 
 	}
 
-	void build_fourty_container() {
+	void build_fourty_container(std::string& output_in) {
 
 	}
 
-	void build_fourty_eight_trailer() {
+	void build_fourty_eight_trailer(std::string& output_in) {
 
 	}
 
-	void build_fourty_eight_dbl_stack() {
+	void build_fourty_eight_dbl_stack(std::string& output_in) {
 
 	}
 
-	void build_fifty_three_trailer() {		
+	void build_fifty_three_trailer(std::string& output_in) {		
+		std::map<std::string, std::map<std::string, std::string> >::iterator itr;
+		std::map<std::string, std::string>::iterator ptr;
+		std::ofstream file;
+		file.open(output_in);
+		file << "CAB" << "," << "CAB" <<std::endl;
 		
+		//Heaviest pallets to go in spots 7:18
+		//Lighest pallets to go in spots 1:6-19:24
+		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
+			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+				if (ptr->first.compare("4x4 Pallet") == 0)
+				{
+
+				}
+
+				else if (ptr->first.compare("4x6 Pallet Long") == 0)
+				{
+
+				}
+
+				else
+				{
+					std::cout << "Add this size: " << ptr->first << std::endl;
+
+				}
+			}
+		}
+	
+		file << "DOCK" << "," << "DOCK";
+		file.close();
 	}
 
-	void build_fifty_three_trailer_dbl_stack() {
+	void build_fifty_three_trailer_dbl_stack(std::string& output_in) {
 
 	}
 
-	void build_steel_flatbed() {
+	void build_steel_flatbed(std::string& output_in) {
 
 	}
 
@@ -182,45 +214,13 @@ public:
 		}
 
 		std::sort(pallets.begin(), pallets.end());
-
-		for (long unsigned int i = 0; i < pallets.size(); i++) {
-			std::cout << pallets[i].first << ": " << pallets[i].second << std::endl;
-		}
-		std::cout << "Pallet Count: " << pallets.size() << std::endl;
-
 	}
 
-	void print_load() {
-		if (trailer_length.compare(twenty_foot_container) == 0) {
 
-
-		}
-		else if (trailer_length.compare(twenty_eight_truck) == 0) {
-
-		}
-		else if (trailer_length.compare(fourty_container) == 0) {
-
-		}
-		else if (trailer_length.compare(fourty_eight_trailer) == 0) {
-
-		}
-		else if (trailer_length.compare(fourty_eight_trailer_dbl_stack) == 0) {
-
-		}
-		else if (trailer_length.compare(fifty_three_trailer) == 0) {
-
-		}
-		else if (trailer_length.compare(fifty_three_dbl_stack) == 0) {
-
-		}
-		else if (trailer_length.compare(steel_flatbed) == 0) {
-
-		}
-		else {
-			std::cout << "Error: Unrecognized Trailer... Unable to generate load." << std::endl;
-		}
-
-		/*std::map<bool, std::map<std::string, int> >::iterator itr;
+	
+	
+	/*
+		std::map<bool, std::map<std::string, int> >::iterator itr;
 		std::map<std::string, int>::iterator ptr;
 		for (itr = pallet_positions.begin(); itr != pallet_positions.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
@@ -228,8 +228,8 @@ public:
 					<< "   IU #: " << ptr->first
 					<< "   Weight: " << ptr->second << std::endl;
 			}
-		}*/
-	}
+		}
+*/
 
 
 
@@ -252,6 +252,7 @@ private:
 	std::map<std::string, std::map<std::string, std::string>> iu_dim_weight;
 	std::map<std::string, std::map<std::string, std::string>> iu_material_area;
 	std::vector<std::pair<int, std::string>> pallets;
+	
 };
 
 #endif

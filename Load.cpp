@@ -18,13 +18,13 @@
 
 //Come back to this later...******************************************************************
 bool input_check(int argc, char* argv[], bool& is_debug) {
-	if (argc != 1 && argc != 2) {
+	if (argc != 1 && argc != 2 && argc != 3) {
 		std::cout << "Usage: load.exe INCORRECT AMOUNT OF INPUTS [--debug]" << std::endl;
 		return false;
 	}
 	else
 	{
-		if (argc == 2) {
+		if (argc == 3) {
 			is_debug = true;
 			return true;
 		}
@@ -49,12 +49,13 @@ int main(int argc, char* argv[])
 	bool is_debug = false;
 	if (!input_check(argc, argv, is_debug)) 
 		return -1;
-	std::string file = argv[1];
+	std::string file_in = argv[1];
+	std::string file_out = argv[2];
 	truck load(is_debug);
 	
 	try {
-		load.read_csv(file);
-		load.build_load();
+		load.read_csv(file_in);
+		load.build_load(file_out);
 		
 	}
 

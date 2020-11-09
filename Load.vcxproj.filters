@@ -18,7 +18,10 @@
     <ClCompile Include="Load.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Battery-Recognition\unit_test_framework.cpp">
+    <ClCompile Include="truck_tests.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="unit_test_framework.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -26,10 +29,10 @@
     <ClInclude Include="csvstream.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Battery-Recognition\unit_test_framework.h">
+    <ClInclude Include="Truck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Truck.h">
+    <ClInclude Include="unit_test_framework.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
