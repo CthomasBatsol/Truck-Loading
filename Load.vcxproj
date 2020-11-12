@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Load.cpp" />
-    <ClCompile Include="truck_tests.cpp" />
+    <ClCompile Include="Truck_tests.cpp" />
     <ClCompile Include="unit_test_framework.cpp" />
   </ItemGroup>
   <ItemGroup>

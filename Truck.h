@@ -10,15 +10,11 @@ public:
 	truck() {
 		debug_mode = false;
 		gross_weight = 0;
-		four_by_four = 0;
-		four_by_six = 0;
 	}
 
 	truck(bool is_debug) {
 		debug_mode = is_debug;
 		gross_weight = 0;
-		four_by_four = 0;
-		four_by_six = 0;
 	}
 
 	void read_csv(std::string& argv) {
@@ -46,6 +42,7 @@ public:
 				string_weight = row["cGrossWeight"];
 				gross_weight = string_to_int(string_weight);
 			}
+
 			iu_dim_weight.insert(std::make_pair(row["InvUnit for OutShipment::InvUnitID"], std::map<std::string, std::string>()));
 			iu_dim_weight[row["InvUnit for OutShipment::InvUnitID"]].insert(std::make_pair(row["UnitTypes for InvUnit for OutShipment::UnitType"], row["InvUnit for OutShipment::GrossWeight"]));
 			iu_material_area.insert(std::make_pair(row["InvUnit for OutShipment::InvUnitID"], std::map<std::string, std::string>()));
@@ -81,7 +78,6 @@ public:
 		else
 			std::cout << "Syntax is incorrect, comma needs to be removed: " << word << std::endl;
 
-		//std::cout << after << std::endl;
 		delete[] temp;
 		delete[] after;
 
@@ -127,7 +123,7 @@ public:
 	//4. Heaviest materials in the middle. 
 
 	void build_twenty_foot_container(std::string& output_in) {
-		
+
 	}
 
 	void build_twenty_eight_truck(std::string& output_in) {
@@ -146,35 +142,50 @@ public:
 
 	}
 
-	void build_fifty_three_trailer(std::string& output_in) {		
-		std::map<std::string, std::map<std::string, std::string> >::iterator itr;
+	void build_fifty_three_trailer(std::string& output_in) {
+		std::map<std::string, std::map<std::string, std::string>>::iterator itr;
 		std::map<std::string, std::string>::iterator ptr;
 		std::ofstream file;
+		int count = 0;
+		int four_by_six_count = 0;
 		file.open(output_in);
-		file << "CAB" << "," << "CAB" <<std::endl;
-		
+		file << "CAB" << "," << "CAB" << std::endl;
+
 		//Heaviest pallets to go in spots 7:18
-		//Lighest pallets to go in spots 1:6-19:24
+		//Lightest pallets to go in spots 1:6-19:24
 		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
-				if (ptr->first.compare("4x4 Pallet") == 0)
-				{
+				
+				if (ptr->first.compare("4x4 Pallet") == 0 && count == 0) {
+					file << itr->first << ",";
+					count++;
+				}
+
+				else if (ptr->first.compare("4x4 Pallet") == 0 && count == 1) {
+					file << itr->first << "," << std::endl;
+					count = 0;
+					std::cout << count << std::endl;
+				}
+
+				else if (ptr->first.compare("4x6 Pallet Long") == 0) {
+					count = 0;
+					if (four_by_six_count == 0) {
+						file << std::endl << itr->first << "," << "4x6" << std::endl;
+						four_by_six_count++;
+					}
+					else {
+						file << itr->first << "," << "4x6" << std::endl;
+						four_by_six_count++;
+					}
 
 				}
 
-				else if (ptr->first.compare("4x6 Pallet Long") == 0)
-				{
-
-				}
-
-				else
-				{
+				else {
 					std::cout << "Add this size: " << ptr->first << std::endl;
-
 				}
 			}
 		}
-	
+
 		file << "DOCK" << "," << "DOCK";
 		file.close();
 	}
@@ -195,19 +206,6 @@ public:
 
 		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
-				if (ptr->first.compare("4x4 Pallet") == 0)
-					four_by_four++;
-
-				else if (ptr->first.compare("4x6 Pallet Long") == 0)
-					four_by_six++;
-
-				else
-					std::cout << "Add this size: " << ptr->first << std::endl;
-			}
-		}
-
-		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
-			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
 				temp = string_to_int(ptr->second);
 				pallets.push_back(std::make_pair(temp, itr->first));
 			}
@@ -216,27 +214,8 @@ public:
 		std::sort(pallets.begin(), pallets.end());
 	}
 
-
-	
-	
-	/*
-		std::map<bool, std::map<std::string, int> >::iterator itr;
-		std::map<std::string, int>::iterator ptr;
-		for (itr = pallet_positions.begin(); itr != pallet_positions.end(); itr++) {
-			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
-				std::cout << "State: " << itr->first
-					<< "   IU #: " << ptr->first
-					<< "   Weight: " << ptr->second << std::endl;
-			}
-		}
-*/
-
-
-
 private:
 	bool debug_mode;
-	int four_by_four;
-	int four_by_six;
 	int gross_weight;
 	std::string string_weight;
 	std::string trailer_length;
@@ -252,7 +231,7 @@ private:
 	std::map<std::string, std::map<std::string, std::string>> iu_dim_weight;
 	std::map<std::string, std::map<std::string, std::string>> iu_material_area;
 	std::vector<std::pair<int, std::string>> pallets;
-	
+
 };
 
 #endif
