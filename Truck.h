@@ -10,11 +10,17 @@ public:
 	truck() {
 		debug_mode = false;
 		gross_weight = 0;
+		max_weight = 0;
+		pallet_count = 0;
+		quarter_max = 0;
 	}
 
 	truck(bool is_debug) {
 		debug_mode = is_debug;
 		gross_weight = 0;
+		max_weight = 0;
+		pallet_count = 0;
+		quarter_max = 0;
 	}
 
 	void read_csv(std::string& argv) {
@@ -29,6 +35,8 @@ public:
 			organize_data(row, count);
 			count++;
 		}
+		pallet_count = count;
+		std::cout << pallet_count << std::endl;
 
 	}
 
@@ -39,8 +47,15 @@ public:
 			if (count == 0) {
 				trailer_length = row["TrailerTypeDisplay"];
 				k_num = row["OrderID"];
-				string_weight = row["cGrossWeight"];
-				gross_weight = string_to_int(string_weight);
+				string_gross_weight = row["cGrossWeight"];
+				string_max_weight = row["TrailerTypes::MaxWeight"];
+				gross_weight = string_to_int(string_gross_weight);
+				max_weight = string_to_int(string_max_weight);
+				quarter_max = max_weight / 4;
+				
+				if (gross_weight > max_weight) {
+					std::cout << "WARNING: GROSS WEIGHT OF LOAD IS GREATER THAN TRAILERS MAX RATING " << std::endl;
+				}
 			}
 
 			iu_dim_weight.insert(std::make_pair(row["InvUnit for OutShipment::InvUnitID"], std::map<std::string, std::string>()));
@@ -143,50 +158,24 @@ public:
 	}
 
 	void build_fifty_three_trailer(std::string& output_in) {
-		std::map<std::string, std::map<std::string, std::string>>::iterator itr;
-		std::map<std::string, std::string>::iterator ptr;
+		std::map<int, std::map<std::string, std::string>> placement;
+		std::map<int, std::map<std::string, std::string>>::iterator itr1;
+		/*std::map<int, std::map<std::string, std::string>>::iterator itr2;
+		std::map<std::string, std::string>::iterator ptr;*/
 		std::ofstream file;
-		int count = 0;
-		int four_by_six_count = 0;
+		//int count = 0;
+		//int temp = 0;
+
 		file.open(output_in);
-		file << "CAB" << "," << "CAB" << std::endl;
+		file << "     CAB" << "," << "     CAB" << std::endl;
 
 		//Heaviest pallets to go in spots 7:18
 		//Lightest pallets to go in spots 1:6-19:24
-		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
-			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
-				
-				if (ptr->first.compare("4x4 Pallet") == 0 && count == 0) {
-					file << itr->first << ",";
-					count++;
-				}
+		
+		dimension_check(file,placement);
 
-				else if (ptr->first.compare("4x4 Pallet") == 0 && count == 1) {
-					file << itr->first << "," << std::endl;
-					count = 0;
-					std::cout << count << std::endl;
-				}
-
-				else if (ptr->first.compare("4x6 Pallet Long") == 0) {
-					count = 0;
-					if (four_by_six_count == 0) {
-						file << std::endl << itr->first << "," << "4x6" << std::endl;
-						four_by_six_count++;
-					}
-					else {
-						file << itr->first << "," << "4x6" << std::endl;
-						four_by_six_count++;
-					}
-
-				}
-
-				else {
-					std::cout << "Add this size: " << ptr->first << std::endl;
-				}
-			}
-		}
-
-		file << "DOCK" << "," << "DOCK";
+		file << std::endl;
+		file << "      DOCK" << "," << "     DOCK";
 		file.close();
 	}
 
@@ -207,17 +196,55 @@ public:
 		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
 				temp = string_to_int(ptr->second);
-				pallets.push_back(std::make_pair(temp, itr->first));
+				pallets.insert(std::make_pair(temp, std::map < std::string, std::string > ()));
+				pallets[temp].insert(std::make_pair(itr->first,ptr->first));
 			}
 		}
 
-		std::sort(pallets.begin(), pallets.end());
 	}
+
+	void dimension_check(std::ofstream& file_in, std::map<int, std::map<std::string, std::string>>& temp_in) {
+		std::map<int, std::map<std::string, std::string>>::iterator itr_in;
+		std::map<std::string, std::string>::iterator ptr_in;
+
+		int count = 0;
+		for (itr_in = temp_in.begin(); itr_in != temp_in.end(); itr_in++) {
+			for (ptr_in = itr_in->second.begin(); ptr_in != itr_in->second.end(); ptr_in++) {
+
+				if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 0) {
+					file_in << itr_in->first << ",";
+					count++;
+				}
+
+				else if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 1) {
+					file_in << itr_in->first << "," << std::endl;
+					count = 0;
+					std::cout << count << std::endl;
+				}
+
+				else if (ptr_in->second.compare("4x6 Pallet Long") == 0) {
+					count = 0;
+					file_in << itr_in->first << "," << "       4x6" << std::endl;
+
+				}
+
+				else {
+					std::cout << "Add this size: " << ptr_in->first << std::endl;
+				}
+			}
+		}
+
+	}
+
 
 private:
 	bool debug_mode;
 	int gross_weight;
-	std::string string_weight;
+	int max_weight;
+	int quarter_max;
+	int pallet_count;
+	std::string string_gross_weight;
+	std::string string_max_weight;
 	std::string trailer_length;
 	std::string k_num;
 	std::string twenty_foot_container = "20’ Container";
@@ -230,7 +257,8 @@ private:
 	std::string steel_flatbed = "Steel Flatbed";
 	std::map<std::string, std::map<std::string, std::string>> iu_dim_weight;
 	std::map<std::string, std::map<std::string, std::string>> iu_material_area;
-	std::vector<std::pair<int, std::string>> pallets;
+	std::map<int, std::map<std::string,std::string>> pallets;
+	
 
 };
 
