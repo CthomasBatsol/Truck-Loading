@@ -13,6 +13,8 @@ public:
 		max_weight = 0;
 		pallet_count = 0;
 		quarter_max = 0;
+		arr = 0;
+		col_count = 3;
 	}
 
 	truck(bool is_debug) {
@@ -21,6 +23,8 @@ public:
 		max_weight = 0;
 		pallet_count = 0;
 		quarter_max = 0;
+		arr = 0;
+		col_count = 3;
 	}
 
 	void read_csv(std::string& argv) {
@@ -36,7 +40,11 @@ public:
 			count++;
 		}
 		pallet_count = count;
-		std::cout << pallet_count << std::endl;
+		
+		arr = new int* [col_count];
+		for (int i = 0; i < col_count; i++) {
+			arr[i] = new int[pallet_count];
+		}
 
 	}
 
@@ -158,25 +166,64 @@ public:
 	}
 
 	void build_fifty_three_trailer(std::string& output_in) {
-		std::map<int, std::map<std::string, std::string>> placement;
-		std::map<int, std::map<std::string, std::string>>::iterator itr1;
-		/*std::map<int, std::map<std::string, std::string>>::iterator itr2;
-		std::map<std::string, std::string>::iterator ptr;*/
-		std::ofstream file;
-		//int count = 0;
-		//int temp = 0;
+		std::map<int, std::map<std::string, std::string>>::iterator itr;
+		std::map<std::string, std::string>::iterator ptr;
+		int row = 0;
+		int col = 0;
+		
+		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
+			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+				arr[col][row] = stoi(ptr->first);
+				++row;
+			}
+		}
+		
+		row = 0;
+		++col;
+		
+		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
+			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
+				arr[col][row] = itr->first;
+				++row;
+			}
+		}
+		row = 0;
+		++col;
 
-		file.open(output_in);
-		file << "     CAB" << "," << "     CAB" << std::endl;
-
+		dimension_check(col,row);
 		//Heaviest pallets to go in spots 7:18
 		//Lightest pallets to go in spots 1:6-19:24
+		int weight_temp = 0;
+		for (int i = pallet_count/2; i < pallet_count; i++) {
+			weight_temp = arr[1][pallet_count];
+			arr[1][(pallet_count / 2) + i] = arr[1][i];
+			arr[1][i] = weight_temp;
+		}
 		
-		dimension_check(file,placement);
+		/*
+		for (int i = 0; i < pallet_count / 2; i++) {
+			weight_temp = arr[1][(pallet_count/2) + i];
+			arr[1][(pallet_count/2) + i] = arr[1][i];
+			arr[1][i] = weight_temp;
+		}
 
-		file << std::endl;
-		file << "      DOCK" << "," << "     DOCK";
-		file.close();
+		for (int i = pallet_count/2; i < pallet_count; i++) {
+			weight_temp = arr[1][pallet_count - 1 - i];
+			arr[1][pallet_count - 1 - i] = arr[1][i];
+			arr[1][i] = weight_temp;
+		}
+
+		for (int i = 0; i < pallet_count / 2; i++) {
+			weight_temp = arr[1][pallet_count/2 - 1 - i];
+			arr[1][pallet_count/2 - 1 - i] = arr[1][i];
+			arr[1][i] = weight_temp;
+		}*/
+		
+		
+		write_to_file(output_in);
+		print_trailer();
+
+
 	}
 
 	void build_fifty_three_trailer_dbl_stack(std::string& output_in) {
@@ -203,29 +250,30 @@ public:
 
 	}
 
-	void dimension_check(std::ofstream& file_in, std::map<int, std::map<std::string, std::string>>& temp_in) {
+	void dimension_check( int col_in, int row_in) {
 		std::map<int, std::map<std::string, std::string>>::iterator itr_in;
 		std::map<std::string, std::string>::iterator ptr_in;
 
 		int count = 0;
-		for (itr_in = temp_in.begin(); itr_in != temp_in.end(); itr_in++) {
+		for (itr_in = pallets.begin(); itr_in != pallets.end(); itr_in++) {
 			for (ptr_in = itr_in->second.begin(); ptr_in != itr_in->second.end(); ptr_in++) {
 
 				if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 0) {
-					file_in << itr_in->first << ",";
-					count++;
+					arr[col_in][row_in] = 0;
+					++row_in;
+					++count;
 				}
 
 				else if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 1) {
-					file_in << itr_in->first << "," << std::endl;
+					arr[col_in][row_in] = 0;
+					++row_in;
 					count = 0;
-					std::cout << count << std::endl;
 				}
 
 				else if (ptr_in->second.compare("4x6 Pallet Long") == 0) {
 					count = 0;
-					file_in << itr_in->first << "," << "       4x6" << std::endl;
-
+					arr[col_in][row_in] = 1;
+					++row_in;
 				}
 
 				else {
@@ -236,9 +284,43 @@ public:
 
 	}
 
+	void print_trailer() {
+		
+		for (int j = 0; j < pallet_count; j++) {
+			std::cout << arr[1][j] << std::endl;
+		}
+			std::cout<<std::endl;
+			
+		
+	}
+
+	void write_to_file(std::string& output_file) {
+		std::ofstream file;
+		file.open(output_file);
+		file << "     CAB" << "," << "     CAB" << std::endl;
+		/**/
+		/**/
+		/*FILL IN ALGORITHM TO WRITE THE SORTED ARRAY THAT FOLLOWS SAFE LOADING GUIDELINES TO THE FILE FOR THE OPERATOR*/
+		/**/
+		/**/
+		file << std::endl;
+		file << "      DOCK" << "," << "     DOCK";
+		file.close();
+	}
+
+	~truck() {
+		for (int i = 0; i < col_count; i++) {
+			delete[] arr[i];
+		}
+
+		delete[] arr;
+	}
+
 
 private:
 	bool debug_mode;
+	int** arr;
+	int col_count;
 	int gross_weight;
 	int max_weight;
 	int quarter_max;
