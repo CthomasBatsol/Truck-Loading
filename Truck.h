@@ -15,6 +15,8 @@ public:
 		quarter_max = 0;
 		arr = 0;
 		col_count = 3;
+		four_by_six_count = 0;
+		four_by_four_count = 0;
 	}
 
 	truck(bool is_debug) {
@@ -25,6 +27,8 @@ public:
 		quarter_max = 0;
 		arr = 0;
 		col_count = 3;
+		four_by_six_count = 0;
+		four_by_four_count = 0;
 	}
 
 	void read_csv(std::string& argv) {
@@ -170,6 +174,7 @@ public:
 		std::map<std::string, std::string>::iterator ptr;
 		int row = 0;
 		int col = 0;
+		int trailer = 53;
 		
 		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
@@ -194,36 +199,16 @@ public:
 		//Heaviest pallets to go in spots 7:18
 		//Lightest pallets to go in spots 1:6-19:24
 		int weight_temp = 0;
-		for (int i = pallet_count/2; i < pallet_count; i++) {
-			weight_temp = arr[1][pallet_count];
-			arr[1][(pallet_count / 2) + i] = arr[1][i];
+		int count = 0;  
+		for (int i = pallet_count/2; i < pallet_count-3; i++) {
+			weight_temp = arr[1][(pallet_count - 1) - count];
+			arr[1][(pallet_count - 1) - count] = arr[1][i];
 			arr[1][i] = weight_temp;
+			count++;
 		}
 		
-		/*
-		for (int i = 0; i < pallet_count / 2; i++) {
-			weight_temp = arr[1][(pallet_count/2) + i];
-			arr[1][(pallet_count/2) + i] = arr[1][i];
-			arr[1][i] = weight_temp;
-		}
-
-		for (int i = pallet_count/2; i < pallet_count; i++) {
-			weight_temp = arr[1][pallet_count - 1 - i];
-			arr[1][pallet_count - 1 - i] = arr[1][i];
-			arr[1][i] = weight_temp;
-		}
-
-		for (int i = 0; i < pallet_count / 2; i++) {
-			weight_temp = arr[1][pallet_count/2 - 1 - i];
-			arr[1][pallet_count/2 - 1 - i] = arr[1][i];
-			arr[1][i] = weight_temp;
-		}*/
-		
-		
-		write_to_file(output_in);
+		write_to_file(output_in,trailer);
 		print_trailer();
-
-
 	}
 
 	void build_fifty_three_trailer_dbl_stack(std::string& output_in) {
@@ -260,6 +245,7 @@ public:
 
 				if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 0) {
 					arr[col_in][row_in] = 0;
+					four_by_four_count++;
 					++row_in;
 					++count;
 				}
@@ -267,12 +253,14 @@ public:
 				else if (ptr_in->second.compare("4x4 Pallet") == 0 && count == 1) {
 					arr[col_in][row_in] = 0;
 					++row_in;
+					four_by_four_count++;
 					count = 0;
 				}
 
 				else if (ptr_in->second.compare("4x6 Pallet Long") == 0) {
 					count = 0;
 					arr[col_in][row_in] = 1;
+					four_by_six_count++;
 					++row_in;
 				}
 
@@ -284,28 +272,48 @@ public:
 
 	}
 
+
 	void print_trailer() {
-		
 		for (int j = 0; j < pallet_count; j++) {
 			std::cout << arr[1][j] << std::endl;
 		}
 			std::cout<<std::endl;
-			
-		
 	}
 
-	void write_to_file(std::string& output_file) {
+	void write_to_file(std::string& output_file, int trailer_length) {
 		std::ofstream file;
+		int count = 0;
+		int sum = 0;
 		file.open(output_file);
 		file << "     CAB" << "," << "     CAB" << std::endl;
-		/**/
-		/**/
-		/*FILL IN ALGORITHM TO WRITE THE SORTED ARRAY THAT FOLLOWS SAFE LOADING GUIDELINES TO THE FILE FOR THE OPERATOR*/
-		/**/
-		/**/
+		
+		for (int i = 0; i < pallet_count; i++) {
+			
+			if (arr[2][i] == 0 && count == 0 && sum)
+			{
+				file << arr[1][i] << ",";
+				count++;
+			}
+
+			else if (arr[2][i] == 0 && count == 1)
+			{
+				file << arr[1][i] << std::endl;
+				count = 0;
+			}
+			
+			else if (arr[2][i] == 1)
+			{
+				file << arr[1][i] << std::endl;
+			}
+
+			else
+				file << arr[1][i] << std::endl;
+		}
+
 		file << std::endl;
 		file << "      DOCK" << "," << "     DOCK";
 		file.close();
+
 	}
 
 	~truck() {
@@ -325,6 +333,8 @@ private:
 	int max_weight;
 	int quarter_max;
 	int pallet_count;
+	int four_by_six_count;
+	int four_by_four_count;
 	std::string string_gross_weight;
 	std::string string_max_weight;
 	std::string trailer_length;
@@ -340,8 +350,6 @@ private:
 	std::map<std::string, std::map<std::string, std::string>> iu_dim_weight;
 	std::map<std::string, std::map<std::string, std::string>> iu_material_area;
 	std::map<int, std::map<std::string,std::string>> pallets;
-	
-
 };
 
 #endif
