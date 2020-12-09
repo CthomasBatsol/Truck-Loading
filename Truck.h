@@ -175,6 +175,8 @@ public:
 		int row = 0;
 		int col = 0;
 		int trailer = 53;
+		int weight_temp = 0;
+		int count = 0;
 		
 		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
@@ -198,8 +200,7 @@ public:
 		dimension_check(col,row);
 		//Heaviest pallets to go in spots 7:18
 		//Lightest pallets to go in spots 1:6-19:24
-		int weight_temp = 0;
-		int count = 0;  
+		
 		for (int i = pallet_count/2; i < pallet_count-3; i++) {
 			weight_temp = arr[1][(pallet_count - 1) - count];
 			arr[1][(pallet_count - 1) - count] = arr[1][i];
@@ -289,7 +290,7 @@ public:
 		
 		for (int i = 0; i < pallet_count; i++) {
 			
-			if (arr[2][i] == 0 && count == 0 && sum)
+			if (arr[2][i] == 0 && count == 0)
 			{
 				file << arr[1][i] << ",";
 				count++;
@@ -313,7 +314,6 @@ public:
 		file << std::endl;
 		file << "      DOCK" << "," << "     DOCK";
 		file.close();
-
 	}
 
 	~truck() {
