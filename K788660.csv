@@ -1,0 +1,25 @@
+﻿OrderID,DisplayCustomer,Customer for OutShipment::CustomerID,ChemistryIDs,OutShipID,OrderID,ChemistryIDs,DisplayCustomer,Location,EstShipDate,TrailerTypeDisplay,Drum CT,TrailerTypes::MaxShipUnits,TrailerTypes::MaxWeight,cNumUnitsOut,cGrossWeight,cQuantity,InvUnit for OutShipment::InvUnitID,UnitTypes for InvUnit for OutShipment::UnitType,InvUnit for OutShipment::Area,MRL for OutShipment InvUnit::MaterialName,InvUnit for OutShipment::Notes,InvUnit for OutShipment::ESAUnit,InvUnit for OutShipment::GrossWeight,InvUnit for OutShipment::Quantity
+K788660,Tonolli Canada LTD.,5038,"L001
+L002
+L005
+L006
+L007
+L008
+L003",9752,K788660,"L001
+L002
+L005
+L006
+L007
+L008
+L003",Tonolli Canada LTD.,Wixom,10/22/2020,53’ Trailer,,24,"44,000 ",12,"40,380 ",,927062,4x4 Pallet,Staging,M-BNL-208 Auto Size VRLA,,Specific,"3,280.00 ",
+,,,,,,,,,,,,,,,,,927063,4x4 Pallet,Staging,M-BNL-208 Auto Size VRLA,,Specific,"3,774.00 ",
+,,,,,,,,,,,,,,,,,926984,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"5,184.00 ",
+,,,,,,,,,,,,,,,,,926986,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"3,912.00 ",
+,,,,,,,,,,,,,,,,,927049,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"3,886.00 ",
+,,,,,,,,,,,,,,,,,927050,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"3,744.00 ",
+,,,,,,,,,,,,,,,,,927054,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"2,352.00 ",
+,,,,,,,,,,,,,,,,,927056,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"1,890.00 ",
+,,,,,,,,,,,,,,,,,927059,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Specific,"3,846.00 ",
+,,,,,,,,,,,,,,,,,927287,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Any,"2,706.00 ",
+,,,,,,,,,,,,,,,,,927289,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Any,"2,622.00 ",
+,,,,,,,,,,,,,,,,,927290,4x4 Pallet,Staging,M-BWL-303 IndCell Frklft w Rack,,Any,"3,184.00 ",

@@ -1,0 +1,23 @@
+Truck load layout:
+
+1st layer of pallets,,1,2,3,4,5,6,7,8,9,10,11,12
+Truck Cabin,Right,[1801, 1851, 1765, 1818, 1843, 1931, 1805, 1963, 1756, 1805, 1784, 1794]
+Truck Cabin,Left ,[1781, 1792, 1781, 1794, 1790, 1843, 1851, 1801, 1845, 1825, 1758, 1756]
+
+2nd layer of pallets,,1,2,3,4,5,6,7,8,9,10,11,12
+Truck Cabin,Right ,,,,,[1719, 1730, 1753, 1730]
+Truck Cabin,Left ,,,,,[1700, 1709, 1604, 1604, 1551]
+
+Instructions:
+
+1. If the pallet is alone from side to side of the layout it is actually centered in the truck.
+2. Every blank cell means there is not pallet in that location.
+
+Left:,29785
+Right:,28848
+Front:,28648
+Back:,29985
+Left Front:,14190
+Right Front:,14458
+Left Back:,15595
+Right Back:,14390
