@@ -233,6 +233,10 @@ public:
 				pallets[temp].insert(std::make_pair(itr->first,ptr->first));
 			}
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c23416b7c530ccd7f86521aea83478a5d1f9d35
 	}
 
 	void dimension_check( int col_in, int row_in) {
@@ -269,8 +273,15 @@ public:
 				}
 			}
 		}
+<<<<<<< HEAD
 	}
 
+=======
+
+	}
+
+
+>>>>>>> 0c23416b7c530ccd7f86521aea83478a5d1f9d35
 	void print_trailer() {
 		for (int j = 0; j < pallet_count; j++) {
 			std::cout << arr[1][j] << std::endl;
@@ -283,6 +294,7 @@ public:
 		int count = 0;
 		int sum = 0;
 		file.open(output_file);
+<<<<<<< HEAD
 		file << "     CAB" << "," << "     CAB" << "," << "Dimension" << std::endl;
 		
 		for (int i = 0; i < pallet_count; i++) {
@@ -318,6 +330,33 @@ public:
 				file << arr[0][i] << "," << "," << arr[2][i] << std::endl;
 		}
 		std::cout << sum << std::endl;
+=======
+		file << "     CAB" << "," << "     CAB" << std::endl;
+		
+		for (int i = 0; i < pallet_count; i++) {
+			
+			if (arr[2][i] == 0 && count == 0)
+			{
+				file << arr[1][i] << ",";
+				count++;
+			}
+
+			else if (arr[2][i] == 0 && count == 1)
+			{
+				file << arr[1][i] << std::endl;
+				count = 0;
+			}
+			
+			else if (arr[2][i] == 1)
+			{
+				file << arr[1][i] << std::endl;
+			}
+
+			else
+				file << arr[1][i] << std::endl;
+		}
+
+>>>>>>> 0c23416b7c530ccd7f86521aea83478a5d1f9d35
 		file << std::endl;
 		file << "      DOCK" << "," << "     DOCK";
 		file.close();
@@ -327,6 +366,10 @@ public:
 		for (int i = 0; i < col_count; i++) {
 			delete[] arr[i];
 		}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 0c23416b7c530ccd7f86521aea83478a5d1f9d35
 		delete[] arr;
 	}
 
