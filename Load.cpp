@@ -12,9 +12,8 @@
 /* Step 5: Save the record as the order number 										*/
 /* Step 6: Open the file you just saved and save it again as a .csv file			*/
 /* Step 7: Run ./Load.exe K###### in the command prompt								*/
+/* Step 8: Open "load.csv"                                                          */
 /* Step 8: Load the truck according to the diagram in the output					*/		
-
-
 
 //Come back to this later...******************************************************************
 bool input_check(int argc, char* argv[], bool& is_debug) {

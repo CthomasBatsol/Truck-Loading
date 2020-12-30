@@ -44,7 +44,7 @@ public:
 			count++;
 		}
 		pallet_count = count;
-		
+
 		arr = new int* [col_count];
 		for (int i = 0; i < col_count; i++) {
 			arr[i] = new int[pallet_count];
@@ -64,7 +64,7 @@ public:
 				gross_weight = string_to_int(string_gross_weight);
 				max_weight = string_to_int(string_max_weight);
 				quarter_max = max_weight / 4;
-				
+			
 				if (gross_weight > max_weight) {
 					std::cout << "WARNING: GROSS WEIGHT OF LOAD IS GREATER THAN TRAILERS MAX RATING " << std::endl;
 				}
@@ -77,38 +77,71 @@ public:
 		}
 	}
 
+	bool comma_check(const char* value, int size) {
+		bool flag = false;
+		for (int i = 0; i < size; i++) {
+			if (value[i] == ',') {
+				flag = true;
+			}
+		}
+		return flag;
+	}
+
 	int string_to_int(std::string word) {
 		const char* weight = word.c_str();
 		int length = strlen(weight);
 		char* temp = new char[length];
 		char* after = new char[length - 1];
+		
+		bool flag = comma_check(weight,length);
+		
+		if (flag == true) {
+			 
+			for (int i = 0; i < length; i++) {
+				temp[i] = weight[i];
+			}
 
-		for (int i = 0; i < length; i++) {
-			temp[i] = weight[i];
+			if (length == 7) {
+
+				after[0] = temp[0];
+				after[1] = temp[1];
+				after[2] = temp[3];
+				after[3] = temp[4];
+				after[4] = temp[5];
+				word = after;
+			}
+
+			else if (length == 6) {
+
+				after[0] = temp[0];
+				after[1] = temp[2];
+				after[2] = temp[3];
+				after[3] = temp[4];
+				after[4] = temp[5];
+				word = after;
+			}
+
+			else if (length == 9) {
+
+				after[0] = temp[0];
+				after[1] = temp[2];
+				after[2] = temp[3];
+				after[3] = temp[4];
+				word = after;
+			}
+
+			delete[] temp;
+			delete[] after;
+			return std::stoi(word);
 		}
 
-		if (length == 7) {
-			after[0] = temp[0];
-			after[1] = temp[1];
-			after[2] = temp[3];
-			after[3] = temp[4];
-			after[4] = temp[5];
-			word = after;
-		}
-		else if (length == 9) {
-			after[0] = temp[0];
-			after[1] = temp[2];
-			after[2] = temp[3];
-			after[3] = temp[4];
-			word = after;
-		}
-		else
-			std::cout << "Syntax is incorrect, comma needs to be removed: " << word << std::endl;
+		else {
 
-		delete[] temp;
-		delete[] after;
-
-		return std::stoi(word);
+			delete[] temp;
+			delete[] after;
+			return std::stoi(word);
+		}
+		
 	}
 
 	void build_load(std::string& output) {
@@ -177,17 +210,17 @@ public:
 		int trailer = 53;
 		int weight_temp = 0;
 		int count = 0;
-		
+
 		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
 				arr[col][row] = stoi(ptr->first);
 				++row;
 			}
 		}
-		
+
 		row = 0;
 		++col;
-		
+
 		for (itr = pallets.begin(); itr != pallets.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
 				arr[col][row] = itr->first;
@@ -197,18 +230,18 @@ public:
 		row = 0;
 		++col;
 
-		dimension_check(col,row);
+		dimension_check(col, row);
 		//Heaviest pallets to go in spots 7:18
 		//Lightest pallets to go in spots 1:6-19:24
-		
-		for (int i = pallet_count/2; i < pallet_count-3; i++) {
+
+		for (int i = pallet_count / 2; i < pallet_count - 3; i++) {
 			weight_temp = arr[1][(pallet_count - 1) - count];
 			arr[1][(pallet_count - 1) - count] = arr[1][i];
 			arr[1][i] = weight_temp;
 			count++;
 		}
-		
-		write_to_file(output_in,trailer);
+
+		write_to_file(output_in, trailer);
 		print_trailer();
 	}
 
@@ -229,14 +262,13 @@ public:
 		for (itr = iu_dim_weight.begin(); itr != iu_dim_weight.end(); itr++) {
 			for (ptr = itr->second.begin(); ptr != itr->second.end(); ptr++) {
 				temp = string_to_int(ptr->second);
-				pallets.insert(std::make_pair(temp, std::map < std::string, std::string > ()));
-				pallets[temp].insert(std::make_pair(itr->first,ptr->first));
+				pallets.insert(std::make_pair(temp, std::map < std::string, std::string >()));
+				pallets[temp].insert(std::make_pair(itr->first, ptr->first));
 			}
 		}
-
 	}
 
-	void dimension_check( int col_in, int row_in) {
+	void dimension_check(int col_in, int row_in) {
 		std::map<int, std::map<std::string, std::string>>::iterator itr_in;
 		std::map<std::string, std::string>::iterator ptr_in;
 
@@ -265,52 +297,73 @@ public:
 					++row_in;
 				}
 
+				else if (ptr_in->second.compare("Gaylord Box") == 0) {
+					arr[col_in][row_in] = 0;
+					++row_in;
+					four_by_four_count++;
+					count = 0;
+				}
+
 				else {
-					std::cout << "Add this size: " << ptr_in->first << std::endl;
+					std::cout << "Add this size: " << ptr_in->second << std::endl;
 				}
 			}
 		}
-
 	}
-
 
 	void print_trailer() {
 		for (int j = 0; j < pallet_count; j++) {
 			std::cout << arr[1][j] << std::endl;
 		}
-			std::cout<<std::endl;
+		std::cout << std::endl;
 	}
 
-	void write_to_file(std::string& output_file, int trailer_length) {
+	void write_to_file(std::string & output_file, int trailer_length) {
 		std::ofstream file;
 		int count = 0;
 		int sum = 0;
 		file.open(output_file);
-		file << "     CAB" << "," << "     CAB" << std::endl;
-		
+		file << "     CAB" << "," << "     CAB" << "," << "Dimension" << std::endl;
+
 		for (int i = 0; i < pallet_count; i++) {
-			
-			if (arr[2][i] == 0 && count == 0)
-			{
-				file << arr[1][i] << ",";
+
+			if (arr[2][i] == 0 && count == 0 && i != pallet_count - 1) {
+				file << "IU" << arr[0][i] << ",";
+				//file << arr[1][i] << ",";
 				count++;
+				sum += 4;
 			}
 
-			else if (arr[2][i] == 0 && count == 1)
-			{
-				file << arr[1][i] << std::endl;
+			else if (arr[2][i] == 0 && count == 1) {
+				file << "IU" << arr[0][i] << "," << "      4x4" << std::endl;
+				//file << arr[1][i] << "," << "      4x4" << std::endl;
 				count = 0;
 			}
-			
-			else if (arr[2][i] == 1)
-			{
-				file << arr[1][i] << std::endl;
+
+			else if (arr[2][i] == 1) {
+				file << "IU" << arr[0][i] << "," << "," << "      4x6" << std::endl;
+				//file << arr[1][i] << "," << "," << "      4x6" << std::endl;
+				sum += 6;
+			}
+
+			else if (i == pallet_count - 1) {
+				if (arr[2][i] == 0) {
+					file << "IU" << arr[0][i] << "," << "," << "      4x4";
+					//file << arr[1][i] << "," << "," << "      4x4";
+					sum += 4;
+				}
+				else {
+					file << "IU" << arr[0][i] << "," << "," << "      4x6";
+					//file << arr[1][i] << "," << "," << "      4x6";
+					sum += 6;
+				}
 			}
 
 			else
-				file << arr[1][i] << std::endl;
+				file << arr[0][i] << "," << "," << arr[2][i] << std::endl;
 		}
-
+		assert(sum <= 53);
+		//std::cout << sum << std::endl;
 		file << std::endl;
 		file << "      DOCK" << "," << "     DOCK";
 		file.close();
@@ -320,7 +373,6 @@ public:
 		for (int i = 0; i < col_count; i++) {
 			delete[] arr[i];
 		}
-
 		delete[] arr;
 	}
 
@@ -349,7 +401,7 @@ private:
 	std::string steel_flatbed = "Steel Flatbed";
 	std::map<std::string, std::map<std::string, std::string>> iu_dim_weight;
 	std::map<std::string, std::map<std::string, std::string>> iu_material_area;
-	std::map<int, std::map<std::string,std::string>> pallets;
+	std::map<int, std::map<std::string, std::string>> pallets;
 };
 
 #endif
