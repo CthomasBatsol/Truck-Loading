@@ -266,6 +266,7 @@ public:
 				pallets[temp].insert(std::make_pair(itr->first, ptr->first));
 			}
 		}
+
 	}
 
 	void dimension_check(int col_in, int row_in) {
@@ -309,7 +310,9 @@ public:
 				}
 			}
 		}
+
 	}
+
 
 	void print_trailer() {
 		for (int j = 0; j < pallet_count; j++) {
@@ -323,8 +326,7 @@ public:
 		int count = 0;
 		int sum = 0;
 		file.open(output_file);
-		file << "     CAB" << "," << "     CAB" << "," << "Dimension" << std::endl;
-
+		file << "     CAB" << "," << "     CAB" << std::endl;
 		for (int i = 0; i < pallet_count; i++) {
 
 			if (arr[2][i] == 0 && count == 0 && i != pallet_count - 1) {
@@ -362,6 +364,7 @@ public:
 			else
 				file << arr[0][i] << "," << "," << arr[2][i] << std::endl;
 		}
+
 		assert(sum <= 53);
 		//std::cout << sum << std::endl;
 		file << std::endl;
